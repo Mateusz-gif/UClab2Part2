@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Intent;
+import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
@@ -66,6 +67,19 @@ public class MainActivity extends AppCompatActivity {
 
             Random random = new Random();
             validationCode = 1000 + random.nextInt(9000);
+
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+
+            emailIntent.setData(Uri.parse("mailto:"));
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{userEmail});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Validation Code");
+            emailIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Your validation code is: " + validationCode
+            );
+
+            startActivity(emailIntent);
+
         });
 
     }

@@ -7,8 +7,11 @@ import android.widget.Toast;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
+    private int validationCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-            intent.putExtra("name", userName);
-            startActivity(intent);
+            Random random = new Random();
+            validationCode = 1000 + random.nextInt(9000);
         });
 
     }

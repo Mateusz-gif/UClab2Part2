@@ -14,6 +14,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private int validationCode;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         submit.setOnClickListener(v -> {
 
-            String userName = name.getText().toString();
+            userName = name.getText().toString();
             String userPhone = phone.getText().toString();
             String userEmail = email.getText().toString();
             String userPassword = password.getText().toString();
@@ -105,11 +106,9 @@ public class MainActivity extends AppCompatActivity {
 
             if (enteredCode.equals(String.valueOf(validationCode))) {
 
-                Toast.makeText(
-                        this,
-                        "Account validated",
-                        Toast.LENGTH_LONG
-                ).show();
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                intent.putExtra("name", userName);
+                startActivity(intent);
 
             } else {
 

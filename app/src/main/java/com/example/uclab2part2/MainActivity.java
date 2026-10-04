@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,12 +20,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText name= findViewById(R.id.name);
-        EditText password= findViewById(R.id.password);
-        EditText phone= findViewById(R.id.phone);
-        EditText email= findViewById(R.id.email);
+        EditText name = findViewById(R.id.name);
+        EditText password = findViewById(R.id.password);
+        EditText phone = findViewById(R.id.phone);
+        EditText email = findViewById(R.id.email);
 
         Button submit = findViewById(R.id.submit);
+
+        EditText code = findViewById(R.id.code);
+        Button validate = findViewById(R.id.validate);
 
         submit.setOnClickListener(v -> {
 
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             String userEmail = email.getText().toString();
             String userPassword = password.getText().toString();
 
-            if(!userName.matches("[a-zA-Z ]+")){
+            if (!userName.matches("[a-zA-Z ]+")) {
                 Toast.makeText(
                         this,
                         "Name must only contain letters",
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            if(!userPhone.matches("[0-9]+")){
+            if (!userPhone.matches("[0-9]+")) {
                 Toast.makeText(
                         this,
                         "Telephone must only contain numbers",
@@ -51,17 +55,21 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            if(!userEmail.contains("@")){
-                Toast.makeText(this,
+            if (!userEmail.contains("@")) {
+                Toast.makeText(
+                        this,
                         "Enter a valid email",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT
+                ).show();
                 return;
             }
 
-            if(userPassword.isEmpty()){
-                Toast.makeText(this,
+            if (userPassword.isEmpty()) {
+                Toast.makeText(
+                        this,
                         "Password cannot be empty",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT
+                ).show();
                 return;
             }
 
@@ -79,6 +87,38 @@ public class MainActivity extends AppCompatActivity {
             );
 
             startActivity(emailIntent);
+
+        });
+
+        validate.setOnClickListener(v -> {
+
+            String enteredCode = code.getText().toString();
+
+            if (enteredCode.isEmpty()) {
+                Toast.makeText(
+                        this,
+                        "Enter validation code",
+                        Toast.LENGTH_SHORT
+                ).show();
+                return;
+            }
+
+            if (enteredCode.equals(String.valueOf(validationCode))) {
+
+                Toast.makeText(
+                        this,
+                        "Account validated",
+                        Toast.LENGTH_LONG
+                ).show();
+
+            } else {
+
+                Toast.makeText(
+                        this,
+                        "Incorrect validation code",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
 
         });
 
